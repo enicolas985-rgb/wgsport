@@ -3,21 +3,25 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-const { initDatabase } = require('./db/database');
+const { initDatabase } = require('./db/postgres');
 const seed = require('./db/seed');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const databaseUploads = !!process.env.DATABASE_URL;
 const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) {
+if (!databaseUploads && !fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+if (!databaseUploads) {
+  app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+}
+app.use('/uploads', require('./routes/upload'));
 
 const distDir = path.join(__dirname, '..', 'client', 'dist');
 const distIndex = path.join(distDir, 'index.html');

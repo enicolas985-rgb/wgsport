@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const { getDb } = require('../db/database');
+const { getDb } = require('../db/postgres');
 
 let transporter = null;
 
@@ -59,10 +59,10 @@ async function sendMail(to, subject, html, text) {
   }
 }
 
-function getSubscribers() {
+async function getSubscribers() {
   try {
     const db = getDb();
-    const rows = db.prepare('SELECT email FROM subscribers').all();
+    const rows = await db.prepare('SELECT email FROM subscribers').all();
     return rows.map(r => r.email);
   } catch (error) {
     console.error('[mailer] Error al leer suscriptores:', error.message);
@@ -70,19 +70,22 @@ function getSubscribers() {
   }
 }
 
-function notifyPromotion(promotion) {
-  const emails = getSubscribers();
+async function notifyPromotion(promotion) {
+  const emails = await getSubscribers();
   if (emails.length === 0) {
     console.log('[mailer] No hay suscriptores para notificar.');
     return Promise.resolve();
   }
 
+  const baseUrl = process.env.PUBLIC_URL || 'http://localhost:3001';
   const promoValue = promotion.type === 'percentage'
     ? `${promotion.value}% de descuento`
     : `$${Number(promotion.value).toFixed(2)} de descuento`;
 
   const subject = `Nueva Promoción: ${promotion.name}`;
-  const html = `
+  const unsubUrl = email => `${baseUrl}/api/subscribe/unsub?email=${encodeURIComponent(email)}`;
+
+  const buildHtml = email => `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #E5E5E5;">
       <div style="background: #000; color: #fff; padding: 40px; text-align: center;">
         <h1 style="margin: 0; font-size: 28px; letter-spacing: -0.02em;">WG</h1>
@@ -99,11 +102,12 @@ function notifyPromotion(promotion) {
       </div>
       <div style="padding: 16px; text-align: center; color: #8E8E8E; font-size: 12px;">
         © ${new Date().getFullYear()} WG. Todos los derechos reservados.<br><br>
-        <a href="${baseUrl}/api/subscribe/unsub?email=${encodeURIComponent(email)}" style="color: #8E8E8E;">Darme de baja de esta lista de correos</a>
+        <a href="${unsubUrl(email)}" style="color: #8E8E8E;">Darme de baja de esta lista de correos</a>
       </div>
     </div>
   `;
-  const text = `Nueva Promoción en WG: ${promotion.name}
+
+  const buildText = email => `Nueva Promoción en WG: ${promotion.name}
 
 ${promoValue}
 
@@ -111,9 +115,9 @@ ${promoValue}
 
 -
 WG - Ropa Deportiva de Alto Rendimiento
-Para dejar de recibir estos correos: ${baseUrl}/api/subscribe/unsub?email=${encodeURIComponent(email)}`;
+Para dejar de recibir estos correos: ${unsubUrl(email)}`;
 
-  return Promise.all(emails.map(email => sendMail(email, subject, html, text)));
+  return Promise.all(emails.map(email => sendMail(email, subject, buildHtml(email), buildText(email))));
 }
 
 module.exports = { sendMail, getSubscribers, notifyPromotion };

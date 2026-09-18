@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getDb } = require('../db/database');
+const { getDb } = require('../db/postgres');
 const auth = require('../middleware/auth');
 
 function safeParseJson(data, fallback = []) {
@@ -43,9 +43,9 @@ function normalizeColors(colorsRaw) {
   return list.map(normalizeColor);
 }
 
-function attachCategories(db, products) {
+async function attachCategories(db, products) {
   if (!products || products.length === 0) return products;
-  const rows = db.prepare(`
+  const rows = await db.prepare(`
     SELECT pc.product_id, c.id, c.name, c.slug
     FROM product_categories pc
     JOIN categories c ON c.id = pc.category_id
@@ -101,16 +101,16 @@ function formatProduct(p) {
   };
 }
 
-function replaceCategories(db, productId, categoryIds, primaryCategoryId) {
+async function replaceCategories(db, productId, categoryIds, primaryCategoryId) {
   const primary = primaryCategoryId || (categoryIds && categoryIds[0]) || null;
   if (primary) {
-    db.prepare('UPDATE products SET category_id = ? WHERE id = ?').run(primary, productId);
+    await db.prepare('UPDATE products SET category_id = ? WHERE id = ?').run(primary, productId);
   }
-  db.prepare('DELETE FROM product_categories WHERE product_id = ?').run(productId);
+  await db.prepare('DELETE FROM product_categories WHERE product_id = ?').run(productId);
   const insertCat = db.prepare('INSERT OR IGNORE INTO product_categories (product_id, category_id) VALUES (?, ?)');
-  (categoryIds || []).forEach(catId => {
-    if (catId) insertCat.run(productId, catId);
-  });
+  for (const catId of (categoryIds || [])) {
+    if (catId) await insertCat.run(productId, catId);
+  }
 }
 
 function normalizeImages(imagesRaw, imageUrl) {
@@ -124,7 +124,7 @@ function normalizeImages(imagesRaw, imageUrl) {
   return imageUrl ? [imageUrl] : [];
 }
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const db = getDb();
     const { category, search, minPrice, maxPrice, sort } = req.query;
@@ -172,8 +172,8 @@ router.get('/', (req, res) => {
       query += ` ORDER BY p.created_at DESC`;
     }
 
-    const products = db.prepare(query).all(...params);
-    const withCategories = attachCategories(db, products);
+    const products = await db.prepare(query).all(...params);
+    const withCategories = await attachCategories(db, products);
     const formattedProducts = withCategories.map(formatProduct);
 
     res.json(formattedProducts);
@@ -183,10 +183,10 @@ router.get('/', (req, res) => {
   }
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const db = getDb();
-    const product = db.prepare(`
+    const product = await db.prepare(`
       SELECT p.*, c.name as category_name, c.slug as category_slug,
         pr.id as promo_id, pr.name as promo_name, pr.type as promo_type, pr.value as promo_value
       FROM products p
@@ -204,15 +204,15 @@ router.get('/:id', (req, res) => {
       return res.status(404).json({ error: 'Producto no encontrado.' });
     }
 
-    const withCategories = attachCategories(db, [product])[0];
-    res.json(formatProduct(withCategories));
+    const withCategories = await attachCategories(db, [product]);
+    res.json(formatProduct(withCategories[0]));
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al obtener producto.' });
   }
 });
 
-router.post('/', auth, (req, res) => {
+router.post('/', auth, async (req, res) => {
   const { name, description, price, category_id, category_ids, image_url, images, sizes, colors, stock } = req.body;
   try {
     const db = getDb();
@@ -222,7 +222,7 @@ router.post('/', auth, (req, res) => {
     const imagesJson = JSON.stringify(imagesList);
     const primaryCategoryId = (category_ids && category_ids[0]) || category_id || null;
 
-    const info = db.prepare(`
+    const info = await db.prepare(`
       INSERT INTO products (name, description, price, category_id, image_url, images, sizes, colors, stock)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
@@ -238,7 +238,7 @@ router.post('/', auth, (req, res) => {
     );
 
     if (category_ids && category_ids.length) {
-      replaceCategories(db, info.lastInsertRowid, category_ids, primaryCategoryId);
+      await replaceCategories(db, info.lastInsertRowid, category_ids, primaryCategoryId);
     }
 
     res.status(201).json({ id: info.lastInsertRowid, message: 'Producto creado' });
@@ -248,19 +248,19 @@ router.post('/', auth, (req, res) => {
   }
 });
 
-router.put('/:id', auth, (req, res) => {
+router.put('/:id', auth, async (req, res) => {
   const { name, description, price, category_id, category_ids, image_url, images, sizes, colors, stock, is_active } = req.body;
   try {
     const db = getDb();
     const sizesJson = typeof sizes === 'string' ? sizes : JSON.stringify(sizes || []);
     const colorsJson = typeof colors === 'string' ? colors : JSON.stringify(colors || []);
-    const existing = db.prepare('SELECT image_url, images FROM products WHERE id = ?').get(req.params.id);
+    const existing = await db.prepare('SELECT image_url, images FROM products WHERE id = ?').get(req.params.id);
     const existingImages = existing ? normalizeImages(existing.images, existing.image_url) : [];
     const imagesList = Array.isArray(images) ? images.filter(Boolean) : Array.isArray(existingImages) ? existingImages : [];
     const imagesJson = JSON.stringify(imagesList);
     const primaryCategoryId = (category_ids && category_ids[0]) || category_id || null;
 
-    db.prepare(`
+    await db.prepare(`
       UPDATE products 
       SET name = ?, description = ?, price = ?, category_id = ?, image_url = ?, images = ?, sizes = ?, colors = ?, stock = ?, is_active = ?
       WHERE id = ?
@@ -274,12 +274,12 @@ router.put('/:id', auth, (req, res) => {
       sizesJson,
       colorsJson,
       Number(stock) || 0,
-      is_active !== undefined ? is_active : 1,
+      is_active !== undefined ? !!is_active : 1,
       req.params.id
     );
 
     if (category_ids !== undefined) {
-      replaceCategories(db, req.params.id, category_ids, primaryCategoryId);
+      await replaceCategories(db, req.params.id, category_ids, primaryCategoryId);
     }
 
     res.json({ message: 'Producto actualizado' });
@@ -289,11 +289,11 @@ router.put('/:id', auth, (req, res) => {
   }
 });
 
-router.delete('/:id', auth, (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   try {
     const db = getDb();
-    db.prepare('DELETE FROM product_categories WHERE product_id = ?').run(req.params.id);
-    db.prepare('DELETE FROM products WHERE id = ?').run(req.params.id);
+    await db.prepare('DELETE FROM product_categories WHERE product_id = ?').run(req.params.id);
+    await db.prepare('DELETE FROM products WHERE id = ?').run(req.params.id);
     res.json({ message: 'Producto eliminado' });
   } catch (error) {
     console.error(error);

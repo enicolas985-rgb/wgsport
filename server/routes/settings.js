@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { getDb } = require('../db/database');
+const { getDb } = require('../db/postgres');
 const auth = require('../middleware/auth');
 
-// Public settings endpoint (for customer checkout WhatsApp number)
-router.get('/public', (req, res) => {
+router.get('/public', async (req, res) => {
   try {
     const db = getDb();
-    const wpSetting = db.prepare("SELECT value FROM settings WHERE key = 'whatsapp_number'").get();
+    const wpSetting = await db.prepare("SELECT value FROM settings WHERE key = 'whatsapp_number'").get();
     res.json({
       whatsapp_number: wpSetting ? wpSetting.value : '521234567890'
     });
@@ -16,10 +15,10 @@ router.get('/public', (req, res) => {
   }
 });
 
-router.get('/', auth, (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const db = getDb();
-    const settings = db.prepare('SELECT key, value FROM settings').all();
+    const settings = await db.prepare('SELECT key, value FROM settings').all();
     const result = {};
     settings.forEach(s => {
       result[s.key] = s.value;
@@ -30,11 +29,11 @@ router.get('/', auth, (req, res) => {
   }
 });
 
-router.put('/:key', auth, (req, res) => {
+router.put('/:key', auth, async (req, res) => {
   const { value } = req.body;
   try {
     const db = getDb();
-    db.prepare(`
+    await db.prepare(`
       INSERT INTO settings (key, value) VALUES (?, ?)
       ON CONFLICT(key) DO UPDATE SET value = excluded.value
     `).run(req.params.key, value);

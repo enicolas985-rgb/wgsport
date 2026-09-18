@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { getDb } = require('../db/database');
+const { getDb } = require('../db/postgres');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-router.post('/login', (req, res) => {
+const JWT_SECRET = process.env.JWT_SECRET || 'wg_secret_key_2024';
+
+router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -13,20 +15,20 @@ router.post('/login', (req, res) => {
 
   try {
     const db = getDb();
-    const user = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
+    const user = await db.prepare('SELECT * FROM users WHERE username = ?').get(username);
 
     if (!user) {
       return res.status(401).json({ error: 'Credenciales inválidas.' });
     }
 
-    const isMatch = bcrypt.compareSync(password, user.password_hash);
+    const isMatch = await bcrypt.compare(password, user.password_hash);
     if (!isMatch) {
       return res.status(401).json({ error: 'Credenciales inválidas.' });
     }
 
     const token = jwt.sign(
       { id: user.id, username: user.username, role: user.role },
-      'wg_secret_key_2024',
+      JWT_SECRET,
       { expiresIn: '24h' }
     );
 

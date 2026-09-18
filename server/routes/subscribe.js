@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getDb } = require('../db/database');
+const { getDb } = require('../db/postgres');
 const auth = require('../middleware/auth');
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { email } = req.body;
 
   if (!email) {
@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
 
   try {
     const db = getDb();
-    db.prepare('INSERT OR IGNORE INTO subscribers (email) VALUES (?)').run(email.toLowerCase());
+    await db.prepare('INSERT OR IGNORE INTO subscribers (email) VALUES (?)').run(email.toLowerCase());
     res.status(201).json({ message: 'Te has suscrito correctamente. ¡Gracias!' });
   } catch (error) {
     console.error(error);
@@ -35,7 +35,7 @@ router.get('/unsub', (req, res) => {
   return unsubscribe(email, res);
 });
 
-function unsubscribe(email, res) {
+async function unsubscribe(email, res) {
   const normalized = String(email || '').toLowerCase().trim();
   if (!normalized) {
     return res.status(400).json({ error: 'El correo electrónico es requerido.' });
@@ -43,7 +43,7 @@ function unsubscribe(email, res) {
 
   try {
     const db = getDb();
-    const result = db.prepare('DELETE FROM subscribers WHERE email = ?').run(normalized);
+    const result = await db.prepare('DELETE FROM subscribers WHERE email = ?').run(normalized);
     res.json({
       message: result.changes > 0
         ? 'Te has dado de baja correctamente. ¡Hasta pronto!'
@@ -54,20 +54,20 @@ function unsubscribe(email, res) {
   }
 }
 
-router.get('/', auth, (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const db = getDb();
-    const subscribers = db.prepare('SELECT id, email, created_at FROM subscribers ORDER BY created_at DESC').all();
+    const subscribers = await db.prepare('SELECT id, email, created_at FROM subscribers ORDER BY created_at DESC').all();
     res.json(subscribers);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener suscriptores.' });
   }
 });
 
-router.delete('/:id', auth, (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   try {
     const db = getDb();
-    const result = db.prepare('DELETE FROM subscribers WHERE id = ?').run(req.params.id);
+    const result = await db.prepare('DELETE FROM subscribers WHERE id = ?').run(req.params.id);
     if (result.changes === 0) {
       return res.status(404).json({ error: 'Suscriptor no encontrado.' });
     }

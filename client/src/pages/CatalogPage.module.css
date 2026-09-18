@@ -1,0 +1,17 @@
+.page {
+  padding: var(--spacing-xl) var(--spacing-lg);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.count {
+  color: var(--color-text-secondary);
+  font-size: var(--font-body-size);
+}

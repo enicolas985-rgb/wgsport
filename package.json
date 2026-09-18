@@ -1,0 +1,28 @@
+{
+  "name": "wg-sportswear",
+  "version": "1.0.0",
+  "description": "WG - Tienda de Ropa Deportiva",
+  "private": true,
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "seed": "cd server && npm run seed",
+    "start": "node server/index.js",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^10.0.10",
+    "sql.js": "^1.10.3"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

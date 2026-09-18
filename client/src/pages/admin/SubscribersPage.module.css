@@ -1,0 +1,20 @@
+.page {
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.count {
+  color: #666;
+  align-self: center;
+}
+
+.error {
+  color: #e63946;
+  margin-bottom: 16px;
+}

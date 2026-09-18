@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.scrollArea {
+  display: flex;
+  gap: var(--spacing-sm);
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.scrollArea::-webkit-scrollbar {
+  display: none;
+}
+
+.pill {
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-dark);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.pill.active {
+  background: var(--color-text-primary);
+  color: var(--color-text-inverse);
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.select {
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-dark);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}

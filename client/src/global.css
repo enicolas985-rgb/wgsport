@@ -1,0 +1,85 @@
+@import './design-tokens.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line-height);
+  font-weight: var(--font-body-weight);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-primary);
+}
+
+.display {
+  font-size: var(--font-display-size);
+  line-height: var(--font-display-line-height);
+  font-weight: var(--font-display-weight);
+  letter-spacing: var(--font-display-letter-spacing);
+}
+
+.h1 {
+  font-size: var(--font-h1-size);
+  line-height: var(--font-h1-line-height);
+  font-weight: var(--font-h1-weight);
+  letter-spacing: var(--font-h1-letter-spacing);
+}
+
+.h2 {
+  font-size: var(--font-h2-size);
+  line-height: var(--font-h2-line-height);
+  font-weight: var(--font-h2-weight);
+  letter-spacing: var(--font-h2-letter-spacing);
+}
+
+.body-bold {
+  font-size: var(--font-body-bold-size);
+  line-height: var(--font-body-bold-line-height);
+  font-weight: var(--font-body-bold-weight);
+}
+
+.caption {
+  font-size: var(--font-caption-size);
+  line-height: var(--font-caption-line-height);
+  font-weight: var(--font-caption-weight);
+  color: var(--color-text-caption);
+}
+
+.overline {
+  font-size: var(--font-overline-size);
+  line-height: var(--font-overline-line-height);
+  font-weight: var(--font-overline-weight);
+  letter-spacing: var(--font-overline-letter-spacing);
+  text-transform: var(--font-overline-transform);
+  color: var(--color-text-caption);
+}

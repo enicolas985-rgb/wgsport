@@ -1,0 +1,243 @@
+{
+  "designSystem": {
+    "name": "Swiss-Minimalist E-Commerce UI System",
+    "archetype": "Neo-Grotesque / High-Contrast Minimalist",
+    "version": "1.0.0",
+    "visualPhilosophy": "High contrast black and white, extreme typography hierarchy, generous negative space, light gray structural surfaces, and pill-shaped interactive controls.",
+    
+    "tokens": {
+      "color": {
+        "background": {
+          "primary": "#FFFFFF",
+          "secondary": "#F4F4F4",
+          "surface": "#F2F2F2",
+          "input": "#EFEFEF"
+        },
+        "text": {
+          "primary": "#000000",
+          "secondary": "#666666",
+          "tertiary": "#8E8E8E",
+          "inverse": "#FFFFFF"
+        },
+        "border": {
+          "subtle": "#E5E5E5",
+          "dark": "#000000",
+          "focus": "#000000"
+        },
+        "interactive": {
+          "activeIndicator": "#000000",
+          "hoverOpacity": 0.7
+        }
+      },
+
+      "typography": {
+        "fontFamily": {
+          "primary": "Inter, 'Helvetica Neue', Arial, sans-serif",
+          "mono": "'SF Mono', 'Roboto Mono', monospace"
+        },
+        "scale": {
+          "display": {
+            "fontSize": "36px",
+            "lineHeight": "1.15",
+            "fontWeight": "700",
+            "letterSpacing": "-0.02em"
+          },
+          "h1": {
+            "fontSize": "28px",
+            "lineHeight": "1.2",
+            "fontWeight": "700",
+            "letterSpacing": "-0.015em"
+          },
+          "h2": {
+            "fontSize": "20px",
+            "lineHeight": "1.3",
+            "fontWeight": "600",
+            "letterSpacing": "-0.01em"
+          },
+          "body": {
+            "fontSize": "14px",
+            "lineHeight": "1.5",
+            "fontWeight": "400"
+          },
+          "bodyBold": {
+            "fontSize": "14px",
+            "lineHeight": "1.5",
+            "fontWeight": "700"
+          },
+          "caption": {
+            "fontSize": "12px",
+            "lineHeight": "1.4",
+            "fontWeight": "400",
+            "color": "#666666"
+          },
+          "overline": {
+            "fontSize": "11px",
+            "lineHeight": "1.2",
+            "fontWeight": "500",
+            "letterSpacing": "0.08em",
+            "textTransform": "uppercase",
+            "color": "#666666"
+          }
+        }
+      },
+
+      "spacing": {
+        "xs": "4px",
+        "sm": "8px",
+        "md": "16px",
+        "lg": "24px",
+        "xl": "40px",
+        "xxl": "64px"
+      },
+
+      "borderRadius": {
+        "none": "0px",
+        "sm": "2px",
+        "pill": "9999px",
+        "circle": "50%"
+      }
+    },
+
+    "componentPatterns": {
+      "navigation": {
+        "header": {
+          "background": "#FFFFFF",
+          "height": "64px",
+          "padding": "0 24px",
+          "alignment": "space-between",
+          "linkStyle": {
+            "fontSize": "14px",
+            "fontWeight": "600",
+            "color": "#000000"
+          }
+        },
+        "breadcrumbs": {
+          "textStyle": "overline",
+          "separator": ">"
+        },
+        "tabs": {
+          "layout": "horizontal-scroll",
+          "gap": "16px",
+          "itemStyle": {
+            "fontSize": "13px",
+            "fontWeight": "400",
+            "color": "#666666"
+          },
+          "activeItemStyle": {
+            "fontWeight": "700",
+            "color": "#000000",
+            "bottomBorder": "2px solid #000000"
+          }
+        }
+      },
+
+      "buttons": {
+        "pillFilter": {
+          "borderRadius": "pill",
+          "border": "1px solid #000000",
+          "padding": "8px 16px",
+          "fontSize": "13px",
+          "fontWeight": "500",
+          "backgroundColor": "#FFFFFF",
+          "textColor": "#000000",
+          "hasIcon": true
+        },
+        "pillChip": {
+          "borderRadius": "pill",
+          "border": "1px solid #E5E5E5",
+          "padding": "6px 14px",
+          "fontSize": "12px",
+          "backgroundColor": "#FFFFFF",
+          "closeIcon": true
+        },
+        "underlineLink": {
+          "fontWeight": "700",
+          "fontSize": "20px",
+          "borderBottom": "2px solid #000000",
+          "paddingBottom": "2px",
+          "display": "inline-block"
+        }
+      },
+
+      "cards": {
+        "productCard": {
+          "imageContainer": {
+            "aspectRatio": "3/4",
+            "backgroundColor": "#F4F4F4",
+            "borderRadius": "none",
+            "relativePosition": true
+          },
+          "wishlistIcon": {
+            "position": "top-right",
+            "offset": "12px",
+            "icon": "heart-outline",
+            "color": "#000000"
+          },
+          "colorSwatches": {
+            "gap": "6px",
+            "marginTop": "8px",
+            "swatchSize": "14px x 14px",
+            "swatchBorderRadius": "none",
+            "activeIndicator": "2px solid #000000 line below swatch"
+          },
+          "content": {
+            "title": "bodyBold",
+            "description": "caption",
+            "price": "bodyBold",
+            "spacing": "4px"
+          }
+        }
+      },
+
+      "forms": {
+        "textInput": {
+          "backgroundColor": "#EFEFEF",
+          "border": "none",
+          "borderRadius": "none",
+          "padding": "16px",
+          "fontSize": "14px",
+          "placeholderColor": "#666666",
+          "fullWidth": true
+        }
+      },
+
+      "footer": {
+        "gridColumns": "1fr 1fr 1fr 1fr",
+        "gap": "32px",
+        "newsletterBlock": {
+          "titleStyle": "body",
+          "inputStyle": "textInput"
+        },
+        "supportIcons": {
+          "layout": "vertical-list",
+          "item": {
+            "iconShape": "circle",
+            "iconBg": "#EFEFEF",
+            "iconSize": "32px",
+            "labelStyle": "body"
+          }
+        },
+        "linksGroup": {
+          "titleStyle": "none",
+          "linkStyle": "caption",
+          "spacing": "8px"
+        }
+      }
+    },
+
+    "layoutRules": {
+      "grid": {
+        "desktopColumns": 3,
+        "columnGap": "16px",
+        "rowGap": "32px",
+        "maxWidth": "1440px"
+      },
+      "alignment": "left-aligned heavy",
+      "visualHierarchy": {
+        "rule1": "Use heavy bold headlines alongside minimal gray metadata.",
+        "rule2": "Keep product visual backgrounds neutral gray (#F4F4F4) to emphasize product photography.",
+        "rule3": "Use rounded pill elements exclusively for actions/filters and strict rectangular structures for layout elements and input fields."
+      }
+    }
+  }
+}

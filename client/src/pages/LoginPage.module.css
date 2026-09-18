@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 300px);
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--spacing-xl);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-primary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.input {
+  background: var(--color-bg-input);
+  border: none;
+  padding: 16px;
+}
+
+.btn {
+  background: black;
+  color: white;
+  padding: 16px;
+  border-radius: var(--radius-pill);
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}

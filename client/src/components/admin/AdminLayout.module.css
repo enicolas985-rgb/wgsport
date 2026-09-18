@@ -1,0 +1,60 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-bg-secondary);
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--color-bg-primary);
+  border-right: 1px solid var(--color-border-subtle);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.nav {
+  flex: 1;
+  padding: var(--spacing-lg) 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover {
+  background-color: var(--color-bg-surface);
+}
+
+.active {
+  color: var(--color-text-primary);
+  font-weight: bold;
+  border-right: 3px solid var(--color-text-primary);
+}
+
+.footer {
+  padding: var(--spacing-lg);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.logoutBtn {
+  width: 100%;
+  text-align: left;
+  color: red;
+  font-weight: 500;
+}
+
+.main {
+  flex: 1;
+  padding: var(--spacing-xxl);
+  overflow-y: auto;
+}

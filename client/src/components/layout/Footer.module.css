@@ -1,0 +1,118 @@
+.footer {
+  background-color: var(--color-bg-primary);
+  border-top: 1px solid var(--color-border-subtle);
+  padding: var(--spacing-xxl) var(--spacing-lg) var(--spacing-lg);
+  margin-top: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--spacing-lg);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.brand {
+  max-width: 160px;
+  height: auto;
+}
+
+.desc {
+  color: var(--color-text-secondary);
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line-height);
+}
+
+.newsletter {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.input {
+  flex: 1;
+  background-color: var(--color-bg-input);
+  border: none;
+  border-radius: var(--radius-none);
+  padding: var(--spacing-md);
+  font-size: var(--font-body-size);
+}
+
+.button {
+  background-color: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  padding: 0 var(--spacing-lg);
+  font-weight: var(--font-body-bold-weight);
+  cursor: pointer;
+  border: none;
+}
+
+.newsletterMsg {
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-caption-size);
+  color: var(--color-text-secondary);
+}
+
+.newsletterError {
+  color: #DC2626;
+}
+
+.title {
+  font-size: var(--font-body-bold-size);
+  font-weight: var(--font-body-bold-weight);
+  margin-bottom: var(--spacing-xs);
+}
+
+.link {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--font-body-size);
+}
+
+.link:hover {
+  color: var(--color-text-primary);
+}
+
+.supportItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--font-body-size);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: var(--color-bg-input);
+  border-radius: var(--radius-circle);
+}
+
+.bottom {
+  margin-top: var(--spacing-xxl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border-subtle);
+  text-align: center;
+}
+
+.copyright {
+  color: var(--color-text-tertiary);
+  font-size: var(--font-caption-size);
+}

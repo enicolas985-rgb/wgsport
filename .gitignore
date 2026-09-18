@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Build outputs
+client/dist/
+dist/
+
+# Env & secrets
+.env
+server/.env
+
+# Runtime data
+server/uploads/
+wg.db
+*.db
+
+# Logs
+*.log
+server/_boot.log
+server/_boot_err.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/

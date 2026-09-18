@@ -1,0 +1,75 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: var(--color-bg-primary);
+  padding: var(--spacing-xl);
+  width: 90%;
+  max-width: 500px;
+}
+
+.form {
+  margin-top: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.field label {
+  font-size: var(--font-caption-size);
+  color: var(--color-text-secondary);
+}
+
+.input {
+  background-color: var(--color-bg-input);
+  border: none;
+  padding: 16px;
+  font-size: var(--font-body-size);
+}
+
+.summary {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border-subtle);
+  text-align: right;
+  font-size: var(--font-h2-size);
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.cancelBtn {
+  flex: 1;
+  padding: 16px;
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+}
+
+.submitBtn {
+  flex: 2;
+  padding: 16px;
+  background-color: #25D366;
+  color: white;
+  border-radius: var(--radius-pill);
+  font-weight: bold;
+}

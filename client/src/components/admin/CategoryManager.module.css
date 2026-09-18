@@ -1,0 +1,113 @@
+.container {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-subtle);
+  padding: var(--spacing-lg);
+}
+
+.form {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.formBody {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.coverField {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.fileInput {
+  max-width: 220px;
+}
+
+.coverHint {
+  margin: 0;
+  font-size: var(--font-caption-size);
+  color: var(--color-text-secondary);
+}
+
+.coverPreviewWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.coverPreview {
+  width: 90px;
+  height: 60px;
+  object-fit: cover;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.removeCover {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-circle);
+  background: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.input {
+  flex: 1;
+  min-width: 200px;
+  background: var(--color-bg-input);
+  border: none;
+  padding: 16px;
+}
+
+.btn {
+  background: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  padding: 0 var(--spacing-xl);
+  font-weight: bold;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table td {
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.catCell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.catThumb {
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.catThumbPlaceholder {
+  width: 60px;
+  height: 40px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.deleteBtn {
+  cursor: pointer;
+  font-size: 16px;
+}

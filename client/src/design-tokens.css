@@ -1,0 +1,70 @@
+:root {
+  /* Colors */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F4F4F4;
+  --color-bg-surface: #F2F2F2;
+  --color-bg-input: #EFEFEF;
+  
+  --color-text-primary: #000000;
+  --color-text-secondary: #666666;
+  --color-text-tertiary: #8E8E8E;
+  --color-text-inverse: #FFFFFF;
+  
+  --color-border-subtle: #E5E5E5;
+  --color-border-dark: #000000;
+  --color-border-focus: #000000;
+  
+  --color-interactive-active-indicator: #000000;
+  --opacity-hover: 0.7;
+
+  /* Typography */
+  --font-family-base: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  
+  --font-display-size: 36px;
+  --font-display-line-height: 1.15;
+  --font-display-weight: 700;
+  --font-display-letter-spacing: -0.02em;
+  
+  --font-h1-size: 28px;
+  --font-h1-line-height: 1.2;
+  --font-h1-weight: 700;
+  --font-h1-letter-spacing: -0.015em;
+  
+  --font-h2-size: 20px;
+  --font-h2-line-height: 1.3;
+  --font-h2-weight: 600;
+  --font-h2-letter-spacing: -0.01em;
+  
+  --font-body-size: 14px;
+  --font-body-line-height: 1.5;
+  --font-body-weight: 400;
+  
+  --font-body-bold-size: 14px;
+  --font-body-bold-line-height: 1.5;
+  --font-body-bold-weight: 700;
+  
+  --font-caption-size: 12px;
+  --font-caption-line-height: 1.4;
+  --font-caption-weight: 400;
+  --color-text-caption: #666666;
+  
+  --font-overline-size: 11px;
+  --font-overline-line-height: 1.2;
+  --font-overline-weight: 500;
+  --font-overline-letter-spacing: 0.08em;
+  --font-overline-transform: uppercase;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+  --spacing-xxl: 64px;
+
+  /* Border Radius */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-pill: 9999px;
+  --radius-circle: 50%;
+}

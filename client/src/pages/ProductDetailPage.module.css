@@ -1,0 +1,94 @@
+.page {
+  padding: var(--spacing-xl) var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xxl);
+}
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.imageCol {
+  background: var(--color-bg-secondary);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.thumbGallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--color-bg-primary);
+}
+
+.thumb {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.thumbActive {
+  border-color: var(--color-border-dark);
+}
+
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.priceRow {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  font-size: var(--font-h2-size);
+}
+.originalPrice { text-decoration: line-through; color: var(--color-text-secondary); }
+.price { font-weight: bold; }
+
+.desc { margin-bottom: var(--spacing-lg); }
+
+.section { margin-bottom: var(--spacing-md); }
+.label { display: block; font-weight: bold; margin-bottom: var(--spacing-xs); }
+
+.pills { display: flex; gap: var(--spacing-sm); }
+.pill {
+  padding: 8px 16px;
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-pill);
+}
+.pill.active { background: black; color: white; }
+
+.colors { display: flex; gap: var(--spacing-sm); }
+.swatch {
+  width: 24px; height: 24px;
+  border: 1px solid var(--color-border-subtle);
+}
+.swatchActive { outline: 2px solid black; outline-offset: 2px; }
+
+.qty {
+  display: inline-flex; align-items: center; gap: 16px;
+  border: 1px solid var(--color-border-dark); padding: 8px 16px;
+}
+.qty button { font-size: 20px; }
+
+.addBtn {
+  margin-top: var(--spacing-lg);
+  width: 100%;
+  background: black; color: white;
+  padding: 16px; border-radius: var(--radius-pill);
+  font-weight: bold; font-size: 16px;
+}

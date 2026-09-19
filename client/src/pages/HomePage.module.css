@@ -47,7 +47,7 @@
 
 .categoriesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: var(--spacing-lg);
 }
 
@@ -80,4 +80,36 @@
   font-size: var(--font-h2-size);
   font-weight: var(--font-h2-weight);
   text-align: center;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    height: auto;
+    min-height: 440px;
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .hero :global(.display) {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .heroDesc {
+    font-size: var(--font-body-size);
+    margin: var(--spacing-md) 0 var(--spacing-lg);
+  }
+
+  .cta {
+    width: 100%;
+    padding: 14px 24px;
+    text-align: center;
+  }
+
+  .section {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .categoriesGrid {
+    gap: var(--spacing-md);
+  }
 }

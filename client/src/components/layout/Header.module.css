@@ -94,3 +94,39 @@
   min-width: 18px;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 var(--spacing-md);
+    gap: var(--spacing-xs);
+  }
+
+  .left {
+    flex: 0 0 auto;
+  }
+
+  .logoSlogan {
+    display: none;
+  }
+
+  .logoImg {
+    height: 32px;
+  }
+
+  .center {
+    flex: 1;
+    justify-content: center;
+    gap: var(--spacing-md);
+  }
+
+  .right {
+    flex: 0 0 auto;
+    gap: var(--spacing-sm);
+  }
+
+  .navLink,
+  .adminLink {
+    font-size: var(--font-caption-size);
+    white-space: nowrap;
+  }
+}

@@ -58,3 +58,49 @@
   padding: var(--spacing-xxl);
   overflow-y: auto;
 }
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .header {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: var(--spacing-sm);
+    gap: var(--spacing-xs);
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .link {
+    white-space: nowrap;
+    padding: 10px 16px;
+  }
+
+  .active {
+    border-right: none;
+    border-bottom: 3px solid var(--color-text-primary);
+  }
+
+  .footer {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .main {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+}

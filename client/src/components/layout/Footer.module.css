@@ -18,6 +18,15 @@
     grid-template-columns: 1fr;
     gap: var(--spacing-xl);
   }
+
+  .newsletter {
+    flex-direction: column;
+  }
+
+  .button {
+    padding: 16px;
+    width: 100%;
+  }
 }
 
 .column {

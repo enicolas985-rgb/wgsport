@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import styles from './DashboardPage.module.css';
 
 export default function DashboardPage() {
   const { token } = useAuth();
@@ -26,20 +27,20 @@ export default function DashboardPage() {
   return (
     <div>
       <h1 className="h1" style={{marginBottom: '24px'}}>Dashboard</h1>
-      <div style={{display: 'flex', gap: '24px'}}>
-        <div style={{padding: '24px', background: 'white', border: '1px solid #E5E5E5', flex: 1}}>
+      <div className={styles.statsGrid}>
+        <div className={styles.card}>
           <h3>Total Productos</h3>
           <p className="display">{stats.products}</p>
         </div>
-        <div style={{padding: '24px', background: 'white', border: '1px solid #E5E5E5', flex: 1}}>
+        <div className={styles.card}>
           <h3>Categorías</h3>
           <p className="display">{stats.categories}</p>
         </div>
-        <div style={{padding: '24px', background: 'white', border: '1px solid #E5E5E5', flex: 1}}>
+        <div className={styles.card}>
           <h3>Promociones Activas</h3>
           <p className="display">{stats.promotions}</p>
         </div>
-        <div style={{padding: '24px', background: 'white', border: '1px solid #E5E5E5', flex: 1}}>
+        <div className={styles.card}>
           <h3>Suscriptores</h3>
           <p className="display">{stats.subscribers}</p>
         </div>
